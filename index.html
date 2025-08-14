@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Florence Abril - Engineering Leadership Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --dark-gradient: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            --accent-color: #667eea;
+            --text-dark: #2c3e50;
+            --text-light: #34495e;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: var(--primary-gradient);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+        
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            position: relative;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 300;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+        }
+        
+        .hero .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            margin-bottom: 30px;
+            opacity: 0.9;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.6s forwards;
+        }
+        
+        .hero .tagline {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.9s forwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            border: 2px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1.2s forwards;
+        }
+        
+        .cta-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            background: white;
+            padding: 80px 0;
+            transform: translateY(-50px);
+            z-index: 3;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--primary-gradient);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: bold;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        
+        .stat-description {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+        
+        /* Journey Section */
+        .journey-section {
+            background: linear-gradient(45deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            background: var(--dark-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 20px 40px;
+            margin: 40px 0;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+        }
+        
+        .timeline-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .timeline-card:hover {
+            transform: scale(1.02);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 4px solid var(--accent-color);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .timeline-item:nth-child(odd)::before {
+            right: -50px;
+        }
+        
+        .timeline-item:nth-child(even)::before {
+            left: -50px;
+        }
+        
+        .timeline-year {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+        
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+        
+        .timeline-company {
+            font-size: 1rem;
+            color: var(--text-light);
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        
+        .timeline-achievement {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        /* Skills Section */
+        .skills-section {
+            background: white;
+            padding: 100px 0;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .skill-category {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-category::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.05) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .skill-category:hover::before {
+            opacity: 1;
+        }
+        
+        .skill-category:hover {
+            transform: translateY(-5px);
+        }
+        
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .skill-category h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+        
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .skill-tag {
+            background: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .skill-tag:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            background: var(--dark-gradient);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .contact-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+        
+        .contact-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .contact-item {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s ease;
+            min-width: 200px;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .contact-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .contact-item p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                text-align: left;
+                padding-left: 60px;
+                padding-right: 20px;
+            }
+            
+            .timeline-item::before {
+                left: 10px !important;
+                right: auto !important;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        /* Scroll Animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>FLORENCE ABRIL</h1>
+            <div class="subtitle">Software Development Team Lead</div>
+            <div class="tagline">Transforming teams • Scaling impact • Delivering excellence</div>
+            <a href="#achievements" class="cta-button">Explore My Journey</a>
+        </div>
+    </section>
+    
+    <!-- Stats Section -->
+    <section class="stats-section" id="achievements">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card scroll-animate">
+                    <span class="stat-number">467%</span>
+                    <div class="stat-label">Team Growth</div>
+                    <div class="stat-description">Scaled team from 6 to 28+ members</div>
+                </div>
+                <div class="stat-card scroll-animate">
+                    <span class="stat-number">15+</span>
+                    <div class="stat-label">Years Experience</div>
+                    <div class="stat-description">Software engineering expertise</div>
+                </div>
+                <div class="stat-card scroll-animate">
+                    <span class="stat-number">100%</span>
+                    <div class="stat-label">Team Retention</div>
+                    <div class="stat-description">Zero turnover under my leadership</div>
+                </div>
+                <div class="stat-card scroll-animate">
+                    <span class="stat-number">40%</span>
+                    <div class="stat-label">Velocity Increase</div>
+                    <div class="stat-description">Through Agile transformation</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Journey Section -->
+    <section class="journey-section">
+        <div class="container">
+            <h2 class="section-title scroll-animate">Career Journey</h2>
+            <p class="section-subtitle scroll-animate">From individual contributor to engineering leader, driving innovation and team excellence</p>
+            
+            <div class="timeline">
+                <div class="timeline-item scroll-animate">
+                    <div class="timeline-card">
+                        <div class="timeline-year">2021 - Present</div>
+                        <div class="timeline-title">Software Development Team Lead</div>
+                        <div class="timeline-company">More (Remote - Australia)</div>
+                        <div class="timeline-achievement">Leading distributed teams, scaling from 6 to 28+ members while implementing Agile processes and maintaining 100% retention</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item scroll-animate">
+                    <div class="timeline-card">
+                        <div class="timeline-year">2013 - 2021</div>
+                        <div class="timeline-title">Senior Software Engineer / Tech Lead</div>
+                        <div class="timeline-company">Aprimo</div>
+                        <div class="timeline-achievement">Technical escalation expert, mentoring teams and optimizing system performance for enterprise clients</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item scroll-animate">
+                    <div class="timeline-card">
+                        <div class="timeline-year">2012 - 2013</div>
+                        <div class="timeline-title">Senior Software Developer</div>
+                        <div class="timeline-company">MoneySwap Holdings</div>
+                        <div class="timeline-achievement">Architected financial remittance platform using ASP.NET MVC and Entity Framework</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item scroll-animate">
+                    <div class="timeline-card">
+                        <div class="timeline-year">2005 - 2012</div>
+                        <div class="timeline-title">Associate to Senior Developer</div>
+                        <div class="timeline-company">Deltek</div>
+                        <div class="timeline-achievement">Progressive growth in enterprise software development, system analysis, and technical documentation</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section class="skills-section">
+        <div class="container">
+            <h2 class="section-title scroll-animate">Core Expertise</h2>
+            <p class="section-subtitle scroll-animate">Combining technical depth with strategic leadership and business acumen</p>
+            
+            <div class="skills-grid">
+                <div class="skill-category scroll-animate">
+                    <div class="skill-icon">🚀</div>
+                    <h3>Leadership & Management</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Team Scaling</span>
+                        <span class="skill-tag">Agile/Scrum</span>
+                        <span class="skill-tag">Remote Leadership</span>
+                        <span class="skill-tag">Mentoring</span>
+                        <span class="skill-tag">Stakeholder Management</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category scroll-animate">
+                    <div class="skill-icon">⚙️</div>
+                    <h3>Technical Expertise</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">ASP.NET & MVC</span>
+                        <span class="skill-tag">C# & VB.NET</span>
+                        <span class="skill-tag">Azure DevOps</span>
+                        <span class="skill-tag">Oracle & SQL</span>
+                        <span class="skill-tag">System Architecture</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category scroll-animate">
+                    <div class="skill-icon">📊</div>
+                    <h3>Business & Strategy</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Data Science</span>
+                        <span class="skill-tag">Generative AI</span>
+                        <span class="skill-tag">PMI-ACP®</span>
+                        <span class="skill-tag">Global MBA</span>
+                        <span class="skill-tag">Process Optimization</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fun Facts Section -->
+    <section class="skills-section" style="background: #f9f9f9;">
+        <div class="container">
+            <h2 class="section-title scroll-animate">Fun Facts About Me</h2>
+            <p class="section-subtitle scroll-animate">A few personal details that make me, me.</p>
+            <div class="skills-grid">
+                <div class="skill-category scroll-animate">
+                    <div class="skill-icon">🌍</div>
+                    <h3>Languages & Culture</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">French</span>
+                        <span class="skill-tag">Japanese</span>
+                        <span class="skill-tag">Traveler</span>
+                    </div>
+                </div>
+                <div class="skill-category scroll-animate">
+                    <div class="skill-icon">🐶</div>
+                    <h3>Fur Family</h3>
+                    <p>Mom to an adorable American Bully named Dahlia 🐾</p>
+                </div>
+                <div class="skill-category scroll-animate">
+                    <div class="skill-icon">📚</div>
+                    <h3>Passions & Hobbies</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Investigation & Analysis</span>
+                        <span class="skill-tag">Reading</span>
+                        <span class="skill-tag">Yoga & Pilates</span>
+                        <span class="skill-tag">Sleep Enthusiast 😴</span>
+                    </div>
+                </div>
+                <div class="skill-category scroll-animate">
+                    <div class="skill-icon">💡</div>
+                    <h3>Personality</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Intuitive & Empath</span>
+                        <span class="skill-tag">Quiet but Strong</span>
+                        <span class="skill-tag">Calm under Pressure</span>
+                        <span class="skill-tag">Continuous Learner</span>
+                        <span class="skill-tag">Forever Student</span>
+                    </div>
+                </div>
+                <div class="skill-category scroll-animate">
+                    <div class="skill-icon">🎹</div>
+                    <h3>On My Bucket List</h3>
+                    <p>Learn how to play the piano</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-content">
+                <h2 class="contact-title">Let's Connect</h2>
+                <p class="contact-subtitle">Ready to discuss engineering leadership, team scaling, or emerging technologies</p>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h4>📧 Email</h4>
+                        <p>florence_caysip@yahoo.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>💼 LinkedIn</h4>
+                        <p>linkedin.com/in/florenceabril</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>📍 Location</h4>
+                        <p>Metro Manila, Philippines</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Dynamic stat counter animation
+        const statNumbers = document.querySelectorAll('.stat-number');
+        const animateNumbers = (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target;
+                    const finalValue = target.textContent;
+                    let currentValue = 0;
+                    const increment = parseFloat(finalValue) / 50;
+                    
+                    const counter = setInterval(() => {
+                        currentValue += increment;
+                        if (currentValue >= parseFloat(finalValue)) {
+                            target.textContent = finalValue;
+                            clearInterval(counter);
+                        } else {
+                            if (finalValue.includes('%')) {
+                                target.textContent = Math.floor(currentValue) + '%';
+                            } else if (finalValue.includes('+')) {
+                                target.textContent = Math.floor(currentValue) + '+';
+                            } else if (finalValue.includes('→')) {
+                                target.textContent = finalValue; // Keep as is for complex formats
+                            } else {
+                                target.textContent = Math.floor(currentValue);
+                            }
+                        }
+                    }, 30);
+                }
+            });
+        };
+        
+        const numberObserver = new IntersectionObserver(animateNumbers, {
+            threshold: 0.5
+        });
+        
+        statNumbers.forEach(num => numberObserver.observe(num));
+    </script>
+</body>
+</html>
